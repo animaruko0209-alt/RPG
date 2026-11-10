@@ -1,22 +1,33 @@
-﻿// RPG.cpp : サンプルの簡易メインループ（ターン制デモ）
-#include <iostream>
-#include "GameManager.h"
+﻿#include <iostream>
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <Windows.h>
+#endif
+#include "Controller/BattleController.h"
 
 int main()
 {
-    auto& gm = GameManager::Instance();
-    gm.Initialize();
+#ifdef _WIN32
+    // 日本語が文字化けしないよう、コンソールの文字コードを合わせる。
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+#endif
 
-    // 敵をスポーン（データテーブルに基づく）
-    gm.SpawnEnemy("スライム");
-    gm.SpawnEnemy("ゴブリン");
-	gm.SpawnEnemy("オーク");
-	gm.SpawnEnemy("ドラゴン");
+    // MVCの各担当を作り、Controllerに接続する。
+    BattleModel model;
+    BattleView view;
+    BattleController controller(model, view, std::cin);
 
-    // ターン制バトルループを実行（コンソールで選択）
-    gm.RunBattleLoop();
+    // データテーブルに登録されている敵を出現させる。
+    controller.SpawnEnemy("スライム");
+    controller.SpawnEnemy("ゴブリン");
+    controller.SpawnEnemy("オーク");
+    controller.SpawnEnemy("ドラゴン");
 
-    std::cout << "デモ終了。" << std::endl;
+    // 入力と戦闘の進行はControllerに任せる。
+    controller.RunBattleLoop();
+    view.ShowMessage("デモ終了。");
+
     return 0;
 }
-

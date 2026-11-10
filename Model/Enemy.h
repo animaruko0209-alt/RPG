@@ -1,30 +1,38 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 
 class Enemy
 {
 public:
-    enum class State { Idle, Patrol, Attack, Dead };
+    enum class State
+    {
+        Idle,
+        Patrol,
+        Attack,
+        Dead
+    };
 
     Enemy();
     Enemy(const std::string& type, int hp, int attack, float speed);
 
-    // ‰Šú‰»iƒv[ƒ‹‚©‚çÄ—˜—pj
+    // åˆæœŸåŒ–ï¼ˆãƒ—ãƒ¼ãƒ«ã‹ã‚‰å†åˆ©ç”¨ï¼‰
     void Init(const std::string& type, int hp, int attack, float speed);
 
-    // –ˆƒtƒŒ[ƒ€XViŠÈˆÕj
+    // æ¯ãƒ•ãƒ¬ãƒ¼ãƒ æ›´æ–°ï¼ˆç°¡æ˜“ï¼‰
     void Update(float dt);
 
-    // ƒ_ƒ[ƒW‚ğó‚¯‚éiƒ^[ƒ“§‚Åg—pj
+    // ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹ï¼ˆã‚¿ãƒ¼ãƒ³åˆ¶ã§ä½¿ç”¨ï¼‰
     void TakeDamage(int amount);
 
-    // ƒv[ƒ‹‚É•Ô‚·‘O‚ÌƒŠƒZƒbƒg
+    // ãƒ—ãƒ¼ãƒ«ã«è¿”ã™å‰ã®ãƒªã‚»ãƒƒãƒˆ
     void Reset();
 
     bool IsDead() const;
     const std::string& GetType() const;
     int GetHP() const;
+    State GetState() const;
+    float GetStateTimer() const;
     int GetAttack() const;
 
 private:
@@ -38,4 +46,3 @@ private:
     State state_;
     float stateTimer_;
 };
-

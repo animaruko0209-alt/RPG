@@ -1,26 +1,29 @@
-#pragma once
+ï»¿#pragma once
 
 #include <vector>
 #include <memory>
 #include <functional>
 
-// ”Ä—pƒIƒuƒWƒFƒNƒgƒv[ƒ‹ (shared_ptr<ObjectPool<T>> ‚Å•Û‚µAAcquire ‚Í unique_ptr ‚ğ•Ô‚·)
-template<typename T>
-class ObjectPool : public std::enable_shared_from_this<ObjectPool<T>>
+// æ±ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ« (shared_ptr<ObjectPool<T>> ã§ä¿æŒã—ã€Acquire ã¯ unique_ptr ã‚’è¿”ã™)
+template <typename T> class ObjectPool : public std::enable_shared_from_this<ObjectPool<T>>
 {
 public:
     ObjectPool(size_t initial = 0)
     {
         for (size_t i = 0; i < initial; ++i)
+        {
             pool_.push_back(new T());
+        }
     }
 
-    // unique_ptr ‚ÉƒJƒXƒ^ƒ€ƒfƒŠ[ƒ^‚ğ•t‚¯‚Ä•Ô‚·iƒfƒŠ[ƒ^‚ÍƒIƒuƒWƒFƒNƒg‚ğƒv[ƒ‹‚É•Ô‹pj
+    // unique_ptr ã«ã‚«ã‚¹ã‚¿ãƒ ãƒ‡ãƒªãƒ¼ã‚¿ã‚’ä»˜ã‘ã¦è¿”ã™ï¼ˆãƒ‡ãƒªãƒ¼ã‚¿ã¯ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒ—ãƒ¼ãƒ«ã«è¿”å´ï¼‰
     std::unique_ptr<T, std::function<void(T*)>> Acquire()
     {
         T* obj = nullptr;
         if (pool_.empty())
+        {
             obj = new T();
+        }
         else
         {
             obj = pool_.back();
@@ -28,7 +31,8 @@ public:
         }
 
         std::weak_ptr<ObjectPool<T>> wp = this->shared_from_this();
-        auto deleter = [wp](T* p) {
+        auto deleter = [wp](T* p)
+        {
             if (auto sp = wp.lock())
             {
                 sp->ReleaseRaw(p);
@@ -42,21 +46,26 @@ public:
         return std::unique_ptr<T, std::function<void(T*)>>(obj, deleter);
     }
 
-    // ƒv[ƒ‹‚É–ß‚·i“à•”g—pj
+    // ãƒ—ãƒ¼ãƒ«ã«æˆ»ã™ï¼ˆå†…éƒ¨ä½¿ç”¨ï¼‰
     void ReleaseRaw(T* p)
     {
-        if (!p) return;
+        if (!p)
+        {
+            return;
+        }
         p->Reset();
         pool_.push_back(p);
     }
 
     ~ObjectPool()
     {
-        for (T* p : pool_) delete p;
+        for (T* p : pool_)
+        {
+            delete p;
+        }
         pool_.clear();
     }
 
 private:
     std::vector<T*> pool_;
 };
-

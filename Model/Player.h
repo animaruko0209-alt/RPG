@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
 
@@ -12,6 +12,7 @@ public:
     void TakeDamage(int d);
     void Heal(int amount);
     int GetHP() const;
+    int GetMaxHP() const;
     int GetAttack() const;
     const std::string& GetName() const;
 
@@ -21,4 +22,3 @@ private:
     int maxHp_;
     int attack_;
 };
-

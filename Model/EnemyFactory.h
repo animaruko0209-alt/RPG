@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <memory>
 #include <string>
@@ -10,11 +10,10 @@ class EnemyFactory
 {
 public:
     EnemyFactory(std::shared_ptr<ObjectPool<Enemy>> pool, const DataTable& table);
-    // ¶¬iunique_ptr ‚ğó‚¯æ‚èA”jŠü‚Éƒv[ƒ‹‚Ö–ß‚éj
+    // ç”Ÿæˆï¼ˆunique_ptr ã‚’å—ã‘å–ã‚Šã€ç ´æ£„æ™‚ã«ãƒ—ãƒ¼ãƒ«ã¸æˆ»ã‚‹ï¼‰
     std::unique_ptr<Enemy, std::function<void(Enemy*)>> Create(const std::string& type);
 
 private:
     std::shared_ptr<ObjectPool<Enemy>> pool_;
     const DataTable& table_;
 };
-

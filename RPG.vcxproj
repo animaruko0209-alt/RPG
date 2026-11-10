@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -76,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -90,6 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -116,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,20 +127,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DataTable.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyFactory.cpp" />
-    <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RPG.cpp" />
+    <ClCompile Include="Model\DataTable.cpp" />
+    <ClCompile Include="Model\Enemy.cpp" />
+    <ClCompile Include="Model\EnemyFactory.cpp" />
+    <ClCompile Include="Model\Player.cpp" />
+    <ClCompile Include="Model\BattleModel.cpp" />
+    <ClCompile Include="View\BattleView.cpp" />
+    <ClCompile Include="Controller\BattleController.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DataTable.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyFactory.h" />
-    <ClInclude Include="GameManager.h" />
-    <ClInclude Include="ObjectPool.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Model\DataTable.h" />
+    <ClInclude Include="Model\Enemy.h" />
+    <ClInclude Include="Model\EnemyFactory.h" />
+    <ClInclude Include="Model\Player.h" />
+    <ClInclude Include="Model\ObjectPool.h" />
+    <ClInclude Include="Model\BattleModel.h" />
+    <ClInclude Include="View\BattleView.h" />
+    <ClInclude Include="Controller\BattleController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
