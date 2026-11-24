@@ -2,6 +2,8 @@
 
 #include <string>
 
+// 敵キャラクターのクラス
+
 class Enemy
 {
 public:
